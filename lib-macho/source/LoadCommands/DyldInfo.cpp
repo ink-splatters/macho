@@ -187,22 +187,37 @@ namespace MachO
             size_t pos( stream.tell() );
             
             ( void )kind;
-            
-            stream.seek( this->_rebaseOffset, XS::IO::BinaryStream::SeekDirection::Begin );
-            this->_data.push_back( { "Rebase", stream.read( this->_rebaseSize ) } );
-            
-            stream.seek( this->_bindingOffset, XS::IO::BinaryStream::SeekDirection::Begin );
-            this->_data.push_back( { "Binding", stream.read( this->_bindingSize ) } );
-            
-            stream.seek( this->_weakBindingOffset, XS::IO::BinaryStream::SeekDirection::Begin );
-            this->_data.push_back( { "Weak binding", stream.read( this->_weakBindingSize ) } );
-            
-            stream.seek( this->_lazyBindingOffset, XS::IO::BinaryStream::SeekDirection::Begin );
-            this->_data.push_back( { "Lazy binding", stream.read( this->_lazyBindingSize ) } );
-            
-            stream.seek( this->_exportOffset, XS::IO::BinaryStream::SeekDirection::Begin );
-            this->_data.push_back( { "Export", stream.read( this->_exportSize ) } );
-            
+
+            if( this->_rebaseSize != 0 )
+            {
+                stream.seek( this->_rebaseOffset, XS::IO::BinaryStream::SeekDirection::Begin );
+                this->_data.push_back( { "Rebase", stream.read( this->_rebaseSize ) } );
+            }
+
+            if( this->_bindingSize != 0 )
+            {
+                stream.seek( this->_bindingOffset, XS::IO::BinaryStream::SeekDirection::Begin );
+                this->_data.push_back( { "Binding", stream.read( this->_bindingSize ) } );
+            }
+
+            if( this->_weakBindingSize != 0 )
+            {
+                stream.seek( this->_weakBindingOffset, XS::IO::BinaryStream::SeekDirection::Begin );
+                this->_data.push_back( { "Weak binding", stream.read( this->_weakBindingSize ) } );
+            }
+
+            if( this->_lazyBindingSize != 0 )
+            {
+                stream.seek( this->_lazyBindingOffset, XS::IO::BinaryStream::SeekDirection::Begin );
+                this->_data.push_back( { "Lazy binding", stream.read( this->_lazyBindingSize ) } );
+            }
+
+            if( this->_exportSize != 0 )
+            {
+                stream.seek( this->_exportOffset, XS::IO::BinaryStream::SeekDirection::Begin );
+                this->_data.push_back( { "Export", stream.read( this->_exportSize ) } );
+            }
+
             stream.seek( pos, XS::IO::BinaryStream::SeekDirection::Begin );
         }
         
