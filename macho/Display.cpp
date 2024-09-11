@@ -76,7 +76,10 @@ namespace Display
             
             for( const auto & lib: file.linkedLibraries() )
             {
-                libs.addChild( XS::ToString::Filename( lib ) );
+                std::string name = XS::ToString::Filename( lib );
+                std::string dir  = XS::ToString::DirectoryName( lib );
+
+                libs.addChild( name + " - " + dir );
             }
             
             libs.value( std::to_string( libs.children().size() ) );
